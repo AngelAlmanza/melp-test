@@ -1,3 +1,4 @@
+import { ENVIRONMENT } from "@/constants/environment";
 import axios from "axios";
 
 // Returns CORS error, needs to be fixed in backend
@@ -6,9 +7,10 @@ import axios from "axios";
 // });
 
 // I will use this data locally for now
-const url = '/data/data_melp.json';
+const url = `${ENVIRONMENT.BASE_URL}data/data_melp.json`;
 const api = axios.create({
   baseURL: url,
 });
 
 export { api };
+

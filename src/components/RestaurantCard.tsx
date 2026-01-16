@@ -1,3 +1,4 @@
+import { ENVIRONMENT } from "@/constants/environment"
 import type { Restaurant } from "@/interfaces/restaurants"
 import { Globe, Mail, MapPin, Phone, Share2, Star } from "lucide-react"
 import { Badge } from "./ui/badge"
@@ -18,7 +19,7 @@ export const RestaurantCard = ({ restaurant }: Props) => {
     <Card>
       <CardHeader>
         <div className="size-full relative">
-          <img src="/images/placeholder.png" className="w-full h-32 rounded object-cover hidden lg:block" />
+          <img src={`${ENVIRONMENT.BASE_URL}images/placeholder.png`} className="w-full h-32 rounded object-cover hidden lg:block" />
           <div className="absolute -top-8 -right-8 lg:top-2 lg:right-2 flex items-center gap-x-4">
             <Badge variant="secondary" className="bg-yellow-300 text-gray-800 text-xl">
               {restaurant.rating.toFixed(1)}
