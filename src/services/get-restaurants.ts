@@ -1,7 +1,7 @@
 import type { Restaurant } from '@/interfaces/restaurants';
 import { api } from '@/lib/api';
 import { AxiosError } from 'axios';
-import type { Either } from '../../types/either';
+import type { Either } from '../types/either';
 
 export const getRestaurants = async (): Promise<Either<string, Restaurant[]>> => {
   try {
