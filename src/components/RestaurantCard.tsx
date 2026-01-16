@@ -11,7 +11,7 @@ export const RestaurantCard = ({ restaurant }: Props) => {
   return (
     <Card>
       <CardHeader>
-        <div className="size-full relative">
+        <div className="size-full relative hidden lg:block">
           <img src="/images/placeholder.png" className="w-full h-32 rounded object-cover" />
           <Badge variant="secondary" className="absolute top-2 right-2 bg-yellow-300 text-gray-800 text-xl">
             {restaurant.rating}

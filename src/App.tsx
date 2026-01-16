@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { MelpHeader } from "./components/MelpHeader";
 import { RestaurantsContainer } from "./components/RestaurantsContainer";
 import { RestaurantsMap } from "./components/RestaurantsMap";
 import { ShowErrorAlert } from "./components/ShowErrorAlert";
@@ -35,11 +36,14 @@ function App() {
   }, [setRestaurants, setError, setIsLoading]);
 
   return (
-    <div className="w-screen h-screen overflow-auto flex relative">
-      <aside className="w-1/4 h-full p-4">
+    <div className="w-screen h-screen overflow-auto flex flex-col lg:flex-row justify-between relative">
+      <header className="z-20 lg:absolute lg:top-0 lg:right-0 lg:w-2/5">
+        <MelpHeader />
+      </header>
+      <aside className="w-full h-fit overflow-x-scroll bg-transparent p-2 z-20 lg:h-full lg:overflow-y-auto lg:w-2/5">
         <RestaurantsContainer />
       </aside>
-      <main className="w-3/4 h-full">
+      <main className="w-screen h-full absolute top-0 left-0 z-0 lg:relative lg:w-3/5">
         {
           !error && <RestaurantsMap />
         }
