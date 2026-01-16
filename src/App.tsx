@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { RestaurantsContainer } from "./components/RestaurantsContainer";
+import { RestaurantsMap } from "./components/RestaurantsMap";
 import type { Restaurant } from "./interfaces/restaurants";
 import { getRestaurants } from "./services/get-restaurants";
 
@@ -36,7 +37,7 @@ function App() {
         <RestaurantsContainer restaurants={restaurants} isLoading={isLoading} />
       </aside>
       <main className="w-3/4 h-full">
-        <h1 className="text-9xl">Hello World</h1>
+        <RestaurantsMap restaurants={restaurants} />
       </main>
     </div>
   )
