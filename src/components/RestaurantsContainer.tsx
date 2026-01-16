@@ -1,20 +1,20 @@
-import type { Restaurant } from "@/interfaces/restaurants"
+import { useRestaurantContext } from "@/context/restaurant"
+import { useUIContext } from "@/context/ui"
 import { ChevronDown } from "lucide-react"
-import { useCallback, useMemo, useState, type ChangeEvent } from "react"
+import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from "react"
 import { RestaurantCard } from "./RestaurantCard"
 import { RestaurantCardLoading } from "./RestaurantCardLoading"
 import { Button } from "./ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Input } from "./ui/input"
 
-type Props = {
-  restaurants: Restaurant[]
-  isLoading: boolean
-}
-
 type SortBy = 'rating' | 'name'
 
-export const RestaurantsContainer = ({ restaurants, isLoading }: Props) => {
+export const RestaurantsContainer = () => {
+  const restaurants = useRestaurantContext(state => state.restaurants)
+  const filteredRestaurants = useRestaurantContext(state => state.filteredRestaurants)
+  const setFilteredRestaurants = useRestaurantContext(state => state.setFilteredRestaurants)
+  const isLoading = useUIContext(state => state.isLoading)
   const [search, setSearch] = useState("")
   const [sortBy, setSortBy] = useState<SortBy>('rating')
 
@@ -26,12 +26,6 @@ export const RestaurantsContainer = ({ restaurants, isLoading }: Props) => {
     setSortBy(sort)
   }, [])
 
-  const filteredRestaurants = useMemo(() => {
-    return restaurants.filter((restaurant) =>
-      restaurant.name.toLowerCase().includes(search.toLowerCase())
-    )
-  }, [restaurants, search])
-
   const sortedRestaurants = useMemo(() => {
     return [...filteredRestaurants].sort((a, b) => {
       if (sortBy === 'rating') {
@@ -41,6 +35,13 @@ export const RestaurantsContainer = ({ restaurants, isLoading }: Props) => {
       }
     })
   }, [filteredRestaurants, sortBy])
+
+  useEffect(() => {
+    const results = restaurants.filter((restaurant) =>
+      restaurant.name.toLowerCase().includes(search.toLowerCase())
+    )
+    setFilteredRestaurants(results)
+  }, [search, restaurants, setFilteredRestaurants])
 
   return (
     <section className="space-y-4 w-full h-full overflow-auto">

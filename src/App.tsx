@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RestaurantsContainer } from "./components/RestaurantsContainer";
 import { RestaurantsMap } from "./components/RestaurantsMap";
-import type { Restaurant } from "./interfaces/restaurants";
+import { ShowErrorAlert } from "./components/ShowErrorAlert";
+import { useRestaurantContext } from "./context/restaurant";
+import { useUIContext } from "./context/ui";
 import { getRestaurants } from "./services/get-restaurants";
 
 function App() {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const setRestaurants = useRestaurantContext(state => state.setRestaurants)
+  const setError = useUIContext(state => state.setErrorMsg)
+  const error = useUIContext(state => state.errorMsg)
+  const setIsLoading = useUIContext(state => state.setIsLoading)
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoading(true);
 
     getRestaurants()
@@ -17,7 +20,7 @@ function App() {
         if (restaurants.right) {
           setRestaurants(restaurants.right);
         } else {
-          // TODO: Show errror message
+          setError(restaurants.left);
         }
       })
       .catch((error) => {
@@ -29,15 +32,20 @@ function App() {
           setIsLoading(false);
         }, 5000);
       });
-  }, [])
+  }, [setRestaurants, setError, setIsLoading]);
 
   return (
-    <div className="w-screen h-screen overflow-auto flex">
+    <div className="w-screen h-screen overflow-auto flex relative">
       <aside className="w-1/4 h-full p-4">
-        <RestaurantsContainer restaurants={restaurants} isLoading={isLoading} />
+        <RestaurantsContainer />
       </aside>
       <main className="w-3/4 h-full">
-        <RestaurantsMap restaurants={restaurants} />
+        {
+          !error && <RestaurantsMap />
+        }
+        {
+          error && <ShowErrorAlert />
+        }
       </main>
     </div>
   )

@@ -1,15 +1,12 @@
 import { MAP_CENTER, MAP_ZOOM } from "@/constants/map";
-import type { Restaurant } from "@/interfaces/restaurants";
+import { useRestaurantContext } from "@/context/restaurant";
 import type { LatLng } from "leaflet";
 import { useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer,  } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, } from 'react-leaflet';
 import { ShowMeBtn } from "./ShowMeBtn";
 
-type Props = {
-  restaurants: Restaurant[]
-}
-
-export const RestaurantsMap = ({ restaurants }: Props) => {
+export const RestaurantsMap = () => {
+  const restaurants = useRestaurantContext(state => state.filteredRestaurants)
   const [position, setPosition] =  useState<LatLng | null>(null);
 
   const handleSetPosition = (position: LatLng) => {
