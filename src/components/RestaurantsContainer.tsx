@@ -30,7 +30,7 @@ export const RestaurantsContainer = () => {
   }, [search, restaurants, setFilteredRestaurants])
 
   return (
-    <section className="w-full h-full flex gap-x-4 lg:flex-col bg-transparent">
+    <section className="w-full h-full flex gap-x-4 lg:flex-col lg:gap-y-4 bg-transparent">
       {
         isLoading && Array.from({ length: 5 }).map((_, index) => (
           <RestaurantCardLoading key={index} />

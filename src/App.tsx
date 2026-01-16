@@ -40,7 +40,7 @@ function App() {
       <header className="z-20 lg:absolute lg:top-0 lg:right-0 lg:w-2/5">
         <MelpHeader />
       </header>
-      <aside className="w-full h-fit overflow-x-scroll bg-transparent p-2 z-20 lg:h-full lg:overflow-y-auto lg:w-2/5">
+      <aside className="w-full h-fit overflow-x-scroll bg-transparent p-2 z-20 lg:h-full lg:overflow-y-auto lg:w-2/5 lg:overflow-x-hidden">
         <RestaurantsContainer />
       </aside>
       <main className="w-screen h-full absolute top-0 left-0 z-0 lg:relative lg:w-3/5">
