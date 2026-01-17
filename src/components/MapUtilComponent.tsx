@@ -8,6 +8,7 @@ export const MapUtilComponent = () => {
   const setRestaurantsWithinRadio = useMapContext(state => state.setRestaurantsWithinRadio);
   const point = useMapContext(state => state.point);
   const restaurants = useRestaurantContext(state => state.filteredRestaurants)
+  const selectedRestaurantId = useRestaurantContext(state => state.selectedRestaurant)
   const radius = useMapContext(state => state.radius)
 
   const map = useMapEvents({
@@ -34,6 +35,18 @@ export const MapUtilComponent = () => {
     setRestaurantsWithinRadio(nearbyRestaurants);
 
   }, [point, radius, map, restaurants, setRestaurantsWithinRadio]);
+
+  useEffect(() => {
+    if (selectedRestaurantId) {
+      const restaurant = restaurants.find(r => r.id === selectedRestaurantId);
+      if (restaurant) {
+        map.flyTo([
+          restaurant.address.location.lat,
+          restaurant.address.location.lng
+        ], 18);
+      }
+    }
+  }, [selectedRestaurantId, restaurants, map]);
 
   return null
 }

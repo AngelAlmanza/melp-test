@@ -3,8 +3,8 @@ import type { SortBy } from "@/types/sortBy";
 import { create } from "zustand";
 
 interface RestaurantState {
-  selectedRestaurant: Restaurant | null;
-  setSelectedRestaurant: (restaurant: Restaurant | null) => void;
+  selectedRestaurant: string | null;
+  setSelectedRestaurant: (restaurantId: string | null) => void;
 
   restaurants: Restaurant[];
   setRestaurants: (restaurants: Restaurant[]) => void;

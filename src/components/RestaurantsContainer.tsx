@@ -11,6 +11,11 @@ export const RestaurantsContainer = () => {
   const isLoading = useUIContext(state => state.isLoading)
   const sortBy = useRestaurantContext(state => state.sortBy)
   const search = useRestaurantContext(state => state.searchQuery)
+  const setSelectedRestaurant = useRestaurantContext(state => state.setSelectedRestaurant)
+
+  const handleClickCard = (restaurantId: string) => {
+    setSelectedRestaurant(restaurantId)
+  }
 
   const sortedRestaurants = useMemo(() => {
     return [...filteredRestaurants].sort((a, b) => {
@@ -38,7 +43,7 @@ export const RestaurantsContainer = () => {
       }
       {
         !isLoading && sortedRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+          <RestaurantCard key={restaurant.id} restaurant={restaurant} onClick={() => handleClickCard(restaurant.id)} />
         ))
       }
     </section>

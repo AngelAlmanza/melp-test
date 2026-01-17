@@ -7,16 +7,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 
 type Props = {
   restaurant: Restaurant
+  onClick: () => void
 }
 
-export const RestaurantCard = ({ restaurant }: Props) => {
+export const RestaurantCard = ({ restaurant, onClick }: Props) => {
   const handleClickShare = () => {
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(restaurant.contact.site)}`
     window.open(shareUrl, "_blank", "noopener,noreferrer")
   }
 
   return (
-    <Card>
+    <Card className="cursor-pointer" onClick={onClick}>
       <CardHeader>
         <div className="size-full relative">
           <img src={`${ENVIRONMENT.BASE_URL}images/placeholder.png`} className="w-full h-32 rounded object-cover hidden lg:block" />
