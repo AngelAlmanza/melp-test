@@ -2,6 +2,7 @@ import { useRestaurantContext } from "@/context/restaurant"
 import { useUIContext } from "@/context/ui"
 import { ChevronDown } from "lucide-react"
 import { type ChangeEvent } from "react"
+import { PointInfoDialog } from "./PointInfoDialog"
 import { Button } from "./ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Input } from "./ui/input"
@@ -49,6 +50,9 @@ export const MelpHeader = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+      <div className="w-full flex justify-end">
+        <PointInfoDialog />
       </div>
     </section>
   )
